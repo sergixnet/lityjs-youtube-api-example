@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Lity js and youtube iframe api</title>
+    <link rel="stylesheet" href="css/lity.min.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="js/lity.js"></script>
+</head>
+
+<body>
+    <!-- https://www.youtube.com/embed/YE7VzlLtp-4 -->
+    <a href="#" id="video-link">
+        <img src="https://placekitten.com/200/300" alt="video thumbnail">
+        <p>Click in the image</p>
+    </a>
+    <article id="message">
+        <h1>Thanks for watching all the video!!</h1>
+    </article>
+
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script>
+        "use strict";
+        var $message = $('#message')
+        var $videoLink = $('#video-link');
+        $message.hide();
+        var player;
+
+        $videoLink.on('click', function (e) {
+            e.preventDefault();
+            var myVideo = lity('https//www.youtube.com/embed/YE7VzlLtp-4?&enablejsapi=1');
+            $(myVideo.element()).find('iframe').attr('id', 'youtube-video');
+
+            player = new YT.Player('youtube-video', {
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+
+            function onPlayerReady() {
+                console.log("hey Im ready");
+                //do whatever you want here. Like, player.playVideo();
+
+            }
+
+            function onPlayerStateChange(state) {
+                console.log("my state changed", state.data, state);
+                if (state.data === 0) { // video ended state 0
+                    $message.show();
+                    myVideo.close();
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
