@@ -31,7 +31,7 @@
 
         $videoLink.on('click', function (e) {
             e.preventDefault();
-            var myVideo = lity('https//www.youtube.com/embed/YE7VzlLtp-4?&enablejsapi=1');
+            var myVideo = lity('https//www.youtube.com/embed/mN0zPOpADL4?&enablejsapi=1&cc_load_policy=1&cc_lang_pref=fr');
             $(myVideo.element()).find('iframe').attr('id', 'youtube-video');
 
             player = new YT.Player('youtube-video', {
@@ -44,7 +44,6 @@
             function onPlayerReady() {
                 console.log("hey Im ready");
                 //do whatever you want here. Like, player.playVideo();
-
             }
 
             function onPlayerStateChange(state) {
@@ -55,6 +54,9 @@
                 }
             }
         });
+
+        // https://stackoverflow.com/questions/12685280/youtube-embed-force-subtitles-in-specific-language-with-default
+        // language codes ISO 639
     </script>
 </body>
 
